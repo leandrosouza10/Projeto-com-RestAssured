@@ -1,22 +1,10 @@
 package ue.zippopotamus;
-
-import static org.hamcrest.Matchers.*;
-
-import java.util.ArrayList;
-
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import io.restassured.RestAssured;
-
-
 import static io.restassured.RestAssured.*;
 
-
-
 	public class TestCep {  
-
 
 	@BeforeClass
 	public static void setup() {
@@ -27,20 +15,21 @@ import static io.restassured.RestAssured.*;
 	}		
 	
 	@Test
-	public void TestvalidarCepPequisado() {
-		ArrayList<String> dados = 
-		given()
+	public void testValidarCepPesquisado() {
+				
+			given()	
+				.queryParam("post code","90210")
+				
+			.when()
+				.get("/us/90210")				
 			
-		.when()
-			.get("/us/80228")
-		.then()
-			.log().all()
-			.statusCode(200)
-			.extract().path("post_code.findAll{it.startsWith('80228')}")
-		;
-		Assert.assertEquals(0,dados.size());
+			.then()		
+				.log().all()
+				.statusCode(200);				
+						
+					
 	}
-	}
+}
 	
 
 	
